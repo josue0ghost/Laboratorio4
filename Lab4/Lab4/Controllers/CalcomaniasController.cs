@@ -14,8 +14,12 @@ namespace Lab4.Controllers
         // GET: Calcomanias
         public ActionResult Index()
         {
-            var list = Data.Instance.coleccion.Select(x => x.Key).ToList();
             return View(Data.Instance.coleccion.Select(x => x.Value).ToList());
+        }
+
+        public ActionResult IndexPais()
+        {
+            return View(Data.Instance.coleccion.Select(x => x.Key).ToList());
         }
 
         // GET: Calcomanias/Details/5
@@ -114,6 +118,7 @@ namespace Lab4.Controllers
                     {
                         foreach (KeyValuePair<string, Calcomanias> p in item)
                         {
+                            p.Value.name = p.Key;
                             Data.Instance.coleccion.Add(p.Key, p.Value);
                         }
                     }

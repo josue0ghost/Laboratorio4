@@ -191,6 +191,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Calcomanias\Index.cshtml" />
     <Content Include="Views\Calcomanias\UploadColeccion.cshtml" />
+    <Content Include="Views\Calcomanias\IndexPais.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
