@@ -14,7 +14,7 @@ namespace Lab4.Controllers
         // GET: Calcomanias
         public ActionResult Index()
         {
-            ViewData["keys"] = Data.Instance.coleccion.Select(x => x.Key).ToList();
+            var list = Data.Instance.coleccion.Select(x => x.Key).ToList();
             return View(Data.Instance.coleccion.Select(x => x.Value).ToList());
         }
 
@@ -110,12 +110,19 @@ namespace Lab4.Controllers
                     var json = new JsonConverter<string, Calcomanias>();
                     List<Dictionary<string, Calcomanias>> dic = json.datosJson(file.InputStream);
                     temp = dic.ElementAt(cont);
-                    foreach (KeyValuePair<string, Calcomanias> p in temp)
+                    foreach (var item in dic)
+                    {
+                        foreach (KeyValuePair<string, Calcomanias> p in item)
+                        {
+                            Data.Instance.coleccion.Add(p.Key, p.Value);
+                        }
+                    }
+                    /*foreach (KeyValuePair<string, Calcomanias> p in temp)
                     {
                         Data.Instance.coleccion.Add(p.Key, p.Value);
                         cont = cont + 1;
                         temp = dic.ElementAt(cont);
-                    }
+                    }*/
                     return RedirectToAction("Index");
                 }
             }
