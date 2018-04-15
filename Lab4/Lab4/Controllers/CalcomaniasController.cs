@@ -53,7 +53,30 @@ namespace Lab4.Controllers
                 {
                     if (Data.Instance.coleccion[name].SColeccionadas.Split(',').Contains(cal))
                     {
-                        Data.Instance.coleccion[name].Cambios.Add(Convert.ToInt32(cal));
+                        if (Data.Instance.coleccion[name].Coleccionadas == null)
+                        {
+                            List<int> num1 = new List<int>();
+                            num1.Add(Convert.ToInt32(cal.Trim()));
+                            Data.Instance.coleccion[name].Cambios = num1;
+                        }
+                        else
+                        {
+                            if (Data.Instance.coleccion[name].Cambios == null)
+                            {
+                                List<int> num1 = new List<int>();
+                                num1.Add(Convert.ToInt32(cal.Trim()));
+                                Data.Instance.coleccion[name].Cambios = num1;
+                            }
+                            else
+                            {
+                                if (!Data.Instance.coleccion[name].SCambios.Split(',').Contains(cal))
+                                {
+                                    List<int> num = Data.Instance.coleccion[name].Cambios;
+                                    num.Add(Convert.ToInt16(cal.Trim()));
+                                    Data.Instance.coleccion[name].Cambios = num;
+                                }
+                            }
+                        }
                         Data.Instance.coleccion[name].SCambios = null;
                         foreach (var item in Data.Instance.coleccion[name].Cambios)
                         {
@@ -61,26 +84,29 @@ namespace Lab4.Controllers
                         }
                         return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
                     }
-                    if (Data.Instance.coleccion[name].SFaltantes.Split(',').Contains(cal))
+                    else
                     {
-                        Data.Instance.coleccion[name].Faltantes.Remove(Convert.ToInt32(cal));
-                        Data.Instance.coleccion[name].Coleccionadas.Add(Convert.ToInt32(cal));
-                        Data.Instance.coleccion[name].SFaltantes = null;
-                        Data.Instance.coleccion[name].SColeccionadas = null;
-                        foreach (var item in Data.Instance.coleccion[name].Faltantes)
+                        if (Data.Instance.coleccion[name].SFaltantes.Split(',').Contains(cal))
                         {
-                            Data.Instance.coleccion[name].SFaltantes = Data.Instance.coleccion[name].SFaltantes + item + ",";
+                            Data.Instance.coleccion[name].Faltantes.Remove(Convert.ToInt32(cal));
+                            Data.Instance.coleccion[name].Coleccionadas.Add(Convert.ToInt32(cal));
+                            Data.Instance.coleccion[name].SFaltantes = null;
+                            Data.Instance.coleccion[name].SColeccionadas = null;
+                            foreach (var item in Data.Instance.coleccion[name].Faltantes)
+                            {
+                                Data.Instance.coleccion[name].SFaltantes = Data.Instance.coleccion[name].SFaltantes + item + ",";
+                            }
+                            foreach (var item in Data.Instance.coleccion[name].Coleccionadas)
+                            {
+                                Data.Instance.coleccion[name].SColeccionadas = Data.Instance.coleccion[name].SColeccionadas + item + ",";
+                            }
+                            return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
                         }
-                        foreach (var item in Data.Instance.coleccion[name].Coleccionadas)
+                        if (Data.Instance.coleccion[name].SCambios.Split(',').Contains(cal))
                         {
-                            Data.Instance.coleccion[name].SColeccionadas = Data.Instance.coleccion[name].SColeccionadas + item + ",";
+                            ViewBag.Message = string.Format("Usted ya tiene esta Calcomania Repetida");
+                            return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
                         }
-                        return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
-                    }
-                    if (Data.Instance.coleccion[name].SCambios.Split(',').Contains(cal))
-                    {
-                        ViewBag.Message = string.Format("Usted ya tiene esta Calcomania Repetida");
-                        return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
                     }
                 }
                 else
@@ -121,11 +147,48 @@ namespace Lab4.Controllers
                 string name = collection["name"];
                 if (Data.Instance.coleccion.Keys.ToList().Contains(name))
                 {
-                    Data.Instance.coleccion[name].Faltantes.Add(Convert.ToInt32(cal));
-                    Data.Instance.coleccion[name].SFaltantes = null;
-                    foreach (var item in Data.Instance.coleccion[name].Faltantes)
+                    if(Data.Instance.coleccion[name].Cambios != null)
                     {
-                        Data.Instance.coleccion[name].SFaltantes = Data.Instance.coleccion[name].SFaltantes + item + ",";
+                        if (!Data.Instance.coleccion[name].SCambios.Split(',').Contains(cal))
+                        {
+                            if (Data.Instance.coleccion[name].Faltantes == null)
+                            {
+                                List<int> num1 = new List<int>();
+                                num1.Add(Convert.ToInt32(cal.Trim()));
+                                Data.Instance.coleccion[name].Faltantes = num1;
+                            }
+                            else
+                            {
+                                List<int> num = Data.Instance.coleccion[name].Faltantes;
+                                num.Add(Convert.ToInt16(cal));
+                                Data.Instance.coleccion[name].Faltantes = num;
+                            }
+                            Data.Instance.coleccion[name].SFaltantes = null;
+                            foreach (var item in Data.Instance.coleccion[name].Faltantes)
+                            {
+                                Data.Instance.coleccion[name].SFaltantes = Data.Instance.coleccion[name].SFaltantes + item + ",";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Data.Instance.coleccion[name].Faltantes == null)
+                        {
+                            List<int> num1 = new List<int>();
+                            num1.Add(Convert.ToInt32(cal.Trim()));
+                            Data.Instance.coleccion[name].Faltantes = num1;
+                        }
+                        else
+                        {
+                            List<int> num = Data.Instance.coleccion[name].Faltantes;
+                            num.Add(Convert.ToInt16(cal));
+                            Data.Instance.coleccion[name].Faltantes = num;
+                        }
+                        Data.Instance.coleccion[name].SFaltantes = null;
+                        foreach (var item in Data.Instance.coleccion[name].Faltantes)
+                        {
+                            Data.Instance.coleccion[name].SFaltantes = Data.Instance.coleccion[name].SFaltantes + item + ",";
+                        }
                     }
                     return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
                 }
