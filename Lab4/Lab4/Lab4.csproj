@@ -196,6 +196,9 @@
     <Content Include="Views\Calcomanias\IndexVal.cshtml" />
     <Content Include="Views\Calcomanias\UploadColeccionVal.cshtml" />
     <Content Include="Views\Calcomanias\Create1.cshtml" />
+    <Content Include="Views\Calcomanias\Create2.cshtml" />
+    <Content Include="Views\Calcomanias\Edit.cshtml" />
+    <Content Include="Views\Calcomanias\CreateFaltante.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

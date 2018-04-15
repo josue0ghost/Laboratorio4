@@ -7,9 +7,11 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Upload Json File", "UploadColeccion")
+    @Html.ActionLink("Upload Json File ", "UploadColeccion")
 
-    @Html.ActionLink("Agregar Calcomania", "Create1")
+    @Html.ActionLink("| Agregar Calcomania", "Create1")
+
+    @Html.ActionLink("| Agregar Faltante", "CreateFaltante")
 </p>
 <table class="table">
     <tr>
@@ -44,19 +46,11 @@
                 @Html.DisplayFor(modelItem => item.SCambios)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
             </td>
         </tr>
     }
 
 </table>
-@if (ViewBag.Message != null)
-{
-    <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.Message");
-            };
-    </script>
-}

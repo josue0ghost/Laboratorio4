@@ -7,9 +7,10 @@
 <h2>IndexVal</h2>
 
 <p>
-    @Html.ActionLink("Upload Json File", "UploadColeccionVal")
+    @Html.ActionLink("Upload Json File ", "UploadColeccionVal")
 
-    @Html.ActionLink("Agregar Calcomania", "Create2")
+    @Html.ActionLink("| Agregar Calcomania", "Create2")
+
 </p>
 <table class="table">
     <tr>
@@ -31,9 +32,9 @@
             @Html.DisplayFor(modelItem => item.SValor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id })
+            @*@Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
         </td>
     </tr>
 }

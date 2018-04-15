@@ -13,8 +13,9 @@ namespace Lab4.Models
         [Display(Name = "Pais o Especial")]
         public string name { get; set; }
         public List<int> Faltantes { get; set; }
-        public List<int> Coleccionadas { get; set; }
+        public List<int> Coleccionadas;
         public List<int> Cambios { get; set; }
+        [Display(Name = "Numero de Estampa")]
         public string SFaltantes { get; set; }
         public string SColeccionadas { get; set; }
         public string SCambios { get; set; }

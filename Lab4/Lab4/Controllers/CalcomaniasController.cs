@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Text;
 using System.Web.Mvc;
 using Lab4.Models;
 using Lab4.Clases;
@@ -85,7 +86,11 @@ namespace Lab4.Controllers
                 else
                 {
                     Calcomanias calc = new Calcomanias();
-                    calc.Coleccionadas.Add(Convert.ToInt32(cal));
+                    calc.name = name;
+                    calc.id = Data.Instance.coleccion.Count + 1;
+                    List<int> num = new List<int>();
+                    num.Add(Convert.ToInt32(cal.Trim()));
+                    calc.Coleccionadas = num;
                     Data.Instance.coleccion.Add(name, calc);
                     foreach (var item in Data.Instance.coleccion[name].Coleccionadas)
                     {
@@ -100,8 +105,40 @@ namespace Lab4.Controllers
             }
         }
 
-        // GET: Calcomanias/Create2
-        public ActionResult Create2()
+        // GET: Calcomanias/Create1
+        public ActionResult CreateFaltante()
+        {
+            return View();
+        }
+
+        // POST: Calcomanias/Create1
+        [HttpPost]
+        public ActionResult CreateFaltante(FormCollection collection)
+        {
+            try
+            {
+                string cal = collection["SFaltantes"];
+                string name = collection["name"];
+                if (Data.Instance.coleccion.Keys.ToList().Contains(name))
+                {
+                    Data.Instance.coleccion[name].Faltantes.Add(Convert.ToInt32(cal));
+                    Data.Instance.coleccion[name].SFaltantes = null;
+                    foreach (var item in Data.Instance.coleccion[name].Faltantes)
+                    {
+                        Data.Instance.coleccion[name].SFaltantes = Data.Instance.coleccion[name].SFaltantes + item + ",";
+                    }
+                    return View("Index", Data.Instance.coleccion.Select(x => x.Value).ToList());
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+            // GET: Calcomanias/Create2
+            public ActionResult Create2()
         {
             return View();
         }
@@ -112,7 +149,43 @@ namespace Lab4.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                string et = collection["etiqueta"];
+                string pais = collection["pais"];
+                var val = collection["valor"].Contains("true");
+                string temp = pais + "_" + et;
+                foreach (var item in Data.Instance.ValoresColeccion.Keys)
+                {
+                    if (item.Contains(pais))
+                    {
+                        if (item.Contains(et))
+                        {
+                            ViewBag.Message = string.Format("El valor que ingreso ya existe en su coleccion, " +
+                                "si desea editar el valor de true o False seleccione la opcion de Edit de algun elemento en el index");
+                            //return View("IndexVal", Data.Instance.ValoresColeccion.Select(x => x.Value).ToList());
+                            return View();
+                        }
+                        else
+                        {
+                            ValCalcomanias cal = new ValCalcomanias();
+                            cal.id = Data.Instance.ValoresColeccion.Count + 1;
+                            cal.name = temp;
+                            cal.valor = val;
+                            cal.SValor = Convert.ToString(val);
+                            Data.Instance.ValoresColeccion.Add(temp, cal);
+                            return View("IndexVal", Data.Instance.ValoresColeccion.Select(x => x.Value).ToList());
+                        }
+                    }
+                    else if(!item.Contains(pais))
+                    {
+                        ValCalcomanias cal = new ValCalcomanias();
+                        cal.id = Data.Instance.ValoresColeccion.Count + 1;
+                        cal.name = temp;
+                        cal.valor = val;
+                        cal.SValor = Convert.ToString(val);
+                        Data.Instance.ValoresColeccion.Add(temp, cal);
+                        return View("IndexVal", Data.Instance.ValoresColeccion.Select(x => x.Value).ToList());
+                    }
+                }
 
                 return RedirectToAction("IndexVal");
             }
@@ -125,7 +198,7 @@ namespace Lab4.Controllers
         // GET: Calcomanias/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(Data.Instance.ValoresColeccion.Select(x => x.Value).ToList().Where(y => y.id == id).FirstOrDefault());
         }
 
         // POST: Calcomanias/Edit/5
@@ -135,8 +208,11 @@ namespace Lab4.Controllers
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                var val = collection["valor"].Contains("true");
+                var et = Data.Instance.ValoresColeccion.Select(x => x.Value).ToList().Where(y => y.id == id).FirstOrDefault();
+                Data.Instance.ValoresColeccion[et.name].valor = val;
+                Data.Instance.ValoresColeccion[et.name].SValor = Convert.ToString(val);
+                return RedirectToAction("IndexVal");
             }
             catch
             {
