@@ -150,6 +150,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Calcomanias.cs" />
+    <Compile Include="Models\ValCalcomanias.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,7 +192,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Calcomanias\Index.cshtml" />
     <Content Include="Views\Calcomanias\UploadColeccion.cshtml" />
-    <Content Include="Views\Calcomanias\IndexPais.cshtml" />
+    <Content Include="Views\Calcomanias\Home.cshtml" />
+    <Content Include="Views\Calcomanias\IndexVal.cshtml" />
+    <Content Include="Views\Calcomanias\UploadColeccionVal.cshtml" />
+    <Content Include="Views\Calcomanias\Create1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,7 +16,7 @@ namespace Lab4
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Calcomanias", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Calcomanias", action = "Home", id = UrlParameter.Optional }
             );
         }
     }

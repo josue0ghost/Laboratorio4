@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Upload Json File", "UploadColeccion")
 
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Calcomania", "Create1")
 </p>
 <table class="table">
     <tr>
@@ -30,25 +30,33 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Faltantes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Coleccionadas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cambios)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SFaltantes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SColeccionadas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SCambios)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
     }
 
 </table>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}

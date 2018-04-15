@@ -19,6 +19,6 @@ namespace Lab4.Clases
             }
         }
         public Dictionary<string, Calcomanias> coleccion = new Dictionary<string, Calcomanias>();
-        public Dictionary<string, bool> ValoresColeccion = new Dictionary<string, bool>();
+        public Dictionary<string, ValCalcomanias> ValoresColeccion = new Dictionary<string, ValCalcomanias>();
     }
 }

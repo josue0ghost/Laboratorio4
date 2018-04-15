@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "UploadColeccionVal";
+}
+
+<h2>UploadColeccionVal</h2>
+@using (Html.BeginForm("UploadColeccionVal", "Calcomanias", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.TextBox("file", "", new { type = "file" }) <br />
+
+    <input type="submit" value="Subir" />
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
